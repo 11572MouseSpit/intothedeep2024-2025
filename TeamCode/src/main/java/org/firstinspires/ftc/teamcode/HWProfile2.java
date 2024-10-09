@@ -60,6 +60,18 @@ public class HWProfile2 {
     public DcMotorEx motorRF;
     public DcMotorEx motorRR;
 
+    public DcMotorEx motorLift;
+
+    public Servo servoIntake;
+    public Servo servoWrist;
+    public Servo servoBar;
+    public Servo servoExtend;
+    public Servo servoBucket;
+    public Servo servoExtendRight;
+
+
+
+
 //    public MecanumDrive mecanum = null;
 
     HardwareMap hwMap;
@@ -107,6 +119,29 @@ public class HWProfile2 {
 
         //drivebase init
 //        mecanum = new MecanumDrive(motorLF, motorRF, motorLR, motorRR);
+
+        motorLift = ahwMap.get(DcMotorEx.class, "motorLift");
+        motorLift.setDirection(DcMotor.Direction.REVERSE);
+        motorLift.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        motorLift.setTargetPosition(0);
+        motorLift.setPower(0);
+        motorLift.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        /**
+         * Initialize Servos
+         **/
+        //servoGrabber = hwMap.servo.get("servoGrabber");
+        //servoGrabber2 = hwMap.servo.get("servoGrabber2");
+        servoIntake = ahwMap.servo.get("servoIntake");
+        servoWrist = ahwMap.servo.get("servoWrist");
+        servoBar = ahwMap.servo.get("servoBar");
+        servoExtend = ahwMap.servo.get("servoExtend");
+        servoBucket = ahwMap.servo.get("servoBucket");
+        servoExtendRight = ahwMap.servo.get("servoExtendRight");
+
+
 
         imu = new RevIMU(ahwMap);
         imu.init();
