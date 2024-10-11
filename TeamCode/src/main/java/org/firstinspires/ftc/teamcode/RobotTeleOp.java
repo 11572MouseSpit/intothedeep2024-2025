@@ -55,7 +55,7 @@ public class RobotTeleOp extends LinearOpMode {
         private final LinearOpMode opMode = this;
         public DriveMecanumFTCLib drive = new DriveMecanumFTCLib(robot, opMode);
         private DistanceSensor sensorColorRange;
-        private Servo servoTest;
+ //       private Servo servoTest;
         private final boolean pad2input = true;
 
         private double DriveSpeed = 1;

@@ -62,7 +62,7 @@ public class HWProfile2 {
 
     public DcMotorEx motorLift;
 
-    public Servo servoIntake;
+    public CRServo servoIntake;
     public Servo servoWrist;
     public Servo servoBar;
     public Servo servoExtend;
@@ -134,13 +134,19 @@ public class HWProfile2 {
          **/
         //servoGrabber = hwMap.servo.get("servoGrabber");
         // servoGrabber2 = hwMap.servo.get("servoGrabber2");
-        servoIntake = ahwMap.servo.get("servoIntake");
+        servoIntake = ahwMap.crservo.get("servoIntake");
         servoWrist = ahwMap.servo.get("servoWrist");
         servoBar = ahwMap.servo.get("servoBar");
         servoExtend = ahwMap.servo.get("servoExtend");
         servoBucket = ahwMap.servo.get("servoBucket");
         servoExtendRight = ahwMap.servo.get("servoExtendRight");
-        servoIntake.setPosition(0);
+
+        // Zeroing Servos
+        servoWrist.setPosition(0);
+        servoBar.setPosition(0);
+        servoExtend.setPosition(0);
+        servoBucket.setPosition(0);
+        servoExtendRight.setPosition(0);
 
 
         imu = new RevIMU(ahwMap);
