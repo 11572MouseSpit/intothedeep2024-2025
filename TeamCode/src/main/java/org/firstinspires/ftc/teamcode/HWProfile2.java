@@ -133,14 +133,14 @@ public class HWProfile2 {
          * Initialize Servos
          **/
         //servoGrabber = hwMap.servo.get("servoGrabber");
-        //servoGrabber2 = hwMap.servo.get("servoGrabber2");
+        // servoGrabber2 = hwMap.servo.get("servoGrabber2");
         servoIntake = ahwMap.servo.get("servoIntake");
         servoWrist = ahwMap.servo.get("servoWrist");
         servoBar = ahwMap.servo.get("servoBar");
         servoExtend = ahwMap.servo.get("servoExtend");
         servoBucket = ahwMap.servo.get("servoBucket");
         servoExtendRight = ahwMap.servo.get("servoExtendRight");
-
+        servoIntake.setPosition(0);
 
 
         imu = new RevIMU(ahwMap);

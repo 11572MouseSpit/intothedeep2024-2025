@@ -13,5 +13,4 @@ public class MSParams {
     public final double ALIGN_ARM_SCORE = 0.87;
     public final double ALIGN_ARM_HIGH = 0.0;
 
-
 }
