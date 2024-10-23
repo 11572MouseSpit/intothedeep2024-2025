@@ -142,10 +142,11 @@ public class HWProfile2 {
         servoExtendRight = ahwMap.servo.get("servoExtendRight");
 
         // Zeroing Servos
+        servoIntake.setPower(0.5);
         servoWrist.setPosition(0);
-        servoBar.setPosition(0);
+        servoBar.setPosition(1);
         servoExtend.setPosition(0);
-        servoBucket.setPosition(0);
+        servoBucket.setPosition(0.5);
         servoExtendRight.setPosition(0);
 
 

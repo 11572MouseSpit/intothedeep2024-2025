@@ -12,5 +12,5 @@ public class MSParams {
     public final double ALIGN_ARM_MOVE = 0.2;
     public final double ALIGN_ARM_SCORE = 0.87;
     public final double ALIGN_ARM_HIGH = 0.0;
-
+    public final double BUCKET_ON = 0.0;
 }

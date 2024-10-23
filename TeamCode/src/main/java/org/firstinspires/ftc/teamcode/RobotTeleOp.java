@@ -105,6 +105,7 @@ public class RobotTeleOp extends LinearOpMode {
                 telemetry.addData("Status", "Running");
                 telemetry.addData("Left Power", leftPower);
                 telemetry.addData("Right Power", rightPower);
+                telemetry.addData("Eli Pink Shirt", "yes");
                 telemetry.update();
 
             }
