@@ -10,12 +10,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.HWProfile2;
+import org.firstinspires.ftc.teamcode.MSParams;
 
 public class DriveMecanumFTCLib {
 
     private final HWProfile2 robot;
     public LinearOpMode opMode;
-
+    public final static MSParams params = new MSParams();
     FtcDashboard dashboard;
 
 
@@ -434,4 +435,11 @@ public class DriveMecanumFTCLib {
 
         return rotationalAngle;
     }   // end method gyro360
+    public void liftPosition(int targetPosition){
+        robot.motorLift.setPower(params.LIFT_POWER);
+        robot.motorLift.setTargetPosition(targetPosition);
+    }   // end of liftPosition method
+
+
+
 }   // close the class

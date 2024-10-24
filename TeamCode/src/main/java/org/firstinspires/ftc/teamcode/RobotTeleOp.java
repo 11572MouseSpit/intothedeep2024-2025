@@ -32,7 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanumFTCLib;
 
@@ -54,6 +54,7 @@ public class RobotTeleOp extends LinearOpMode {
         private final static HWProfile2 robot = new HWProfile2();
         private final LinearOpMode opMode = this;
         public DriveMecanumFTCLib drive = new DriveMecanumFTCLib(robot, opMode);
+        public final static MSParams params = new MSParams();
         private DistanceSensor sensorColorRange;
  //       private Servo servoTest;
         private final boolean pad2input = true;
@@ -69,6 +70,14 @@ public class RobotTeleOp extends LinearOpMode {
             robot.init(hardwareMap);
             telemetry.addData("Status:", "Initialized");
             telemetry.update();
+
+            robot.servoIntake.setPower(0);
+            robot.servoWrist.setPosition(0);
+            robot.servoBar.setPosition(0);
+            robot.servoExtend.setPosition(params.Extend_IN);
+            robot.servoExtendRight.setPosition(params. ExtendRight_IN);
+            robot.servoBucket.setPosition(0);
+
             // Wait for the game to start (driver presses PLAY)
             waitForStart();
 //        drive.haltandresetencoders();
@@ -83,7 +92,7 @@ public class RobotTeleOp extends LinearOpMode {
 //        double armUpDown;
             int armPosition = 0;
             int hangPosition = 0;
-
+            int mBase = params.LIFT_RESET;
             while (opModeIsActive()) {
                 stickDrive = this.gamepad1.left_stick_y * DriveSpeed;
                 turn = this.gamepad1.right_stick_x * TurnSpeed;
@@ -102,9 +111,38 @@ public class RobotTeleOp extends LinearOpMode {
                     TurnSpeed = 0.5;
                 }
 
+                if(gamepad1.y){
+                    // What Happens when we hit Y - Dump to transfer
+
+                    robot.servoExtendRight.setPosition(params.ExtendRight_CATCH);
+                    robot.servoExtend.setPosition(params.Extend_Catch);
+                    robot.servoBucket.setPosition(params.Bucket_Catch);
+                    robot.servoBar.setPosition(params.Bar_Up);
+                    robot.servoWrist.setPosition(params.Wrist_Up);
+                    mBase = params.LIFT_RESET;
+                }   // end of if(gamepad1.y)
+
+                if(gamepad1.x){
+                    // Intake Samples
+
+                    robot.servoExtendRight.setPosition(params.ExtendRight_OUT);
+                    robot.servoExtend.setPosition(params.Extend_OUT);
+                    robot.servoBar.setPosition(params.Bar_Down);
+                    robot.servoWrist.setPosition(params.Wrist_Down);
+                    robot.servoBucket.setPosition(params.Bucket_Down);
+                    robot.servoIntake.setPower(.25);
+
+                }   // end of if(gamepad1.x)
+                // limit the max and min value of mBase
+                mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
+                drive.liftPosition(mBase);
+
+
                 telemetry.addData("Status", "Running");
                 telemetry.addData("Left Power", leftPower);
                 telemetry.addData("Right Power", rightPower);
+                telemetry.addData("Lift set point", mBase);
+
                 telemetry.addData("Eli Pink Shirt", "yes");
                 telemetry.update();
 
