@@ -133,7 +133,12 @@ public class RobotTeleOp extends LinearOpMode {
                     robot.servoIntake.setPower(.25);
 
                 }   // end of if(gamepad1.x)
-                // limit the max and min value of mBase
+
+                if(gamepad1.a) {
+
+                }
+
+                    // limit the max and min value of mBase
                 mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
                 drive.liftPosition(mBase);
 

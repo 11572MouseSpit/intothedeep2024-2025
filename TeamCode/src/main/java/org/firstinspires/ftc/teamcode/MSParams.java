@@ -15,8 +15,8 @@ public class MSParams {
 
     public final double ExtendRight_IN = 0.6;
     public final double ExtendRight_OUT = 1.0;
-    public final double ExtendRight_CATCH = 0.8;
-    public final double Extend_Catch = 0.2;
+    public final double ExtendRight_CATCH = 0.7;
+    public final double Extend_Catch = 0.3;
     public final double Extend_IN = 0.4;
     public final double Extend_OUT = 0.0;
     public final double Bar_Up = 0.0;
