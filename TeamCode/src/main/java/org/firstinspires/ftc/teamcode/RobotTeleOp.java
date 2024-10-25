@@ -94,21 +94,21 @@ public class RobotTeleOp extends LinearOpMode {
             int hangPosition = 0;
             int mBase = params.LIFT_RESET;
             while (opModeIsActive()) {
-                stickDrive = this.gamepad1.left_stick_y * DriveSpeed;
+                stickDrive = this.gamepad1.left_stick_x * DriveSpeed;
                 turn = this.gamepad1.right_stick_x * TurnSpeed;
-                strafe = this.gamepad1.left_stick_x * StrafeSpeed;
+                strafe = this.gamepad1.left_stick_y * StrafeSpeed;
 
                 drive.StrafeDrive(stickDrive, strafe, turn);
 
 
                 if (gamepad1.left_bumper) {
-                    DriveSpeed = 1;
-                    StrafeSpeed = 1;
-                    TurnSpeed = 1;
+                    DriveSpeed = -1;
+                    StrafeSpeed = -1;
+                    TurnSpeed = -1;
                 } else {
-                    DriveSpeed = 0.5;
-                    StrafeSpeed = 0.5;
-                    TurnSpeed = 0.5;
+                    DriveSpeed = -0.5;
+                    StrafeSpeed = -0.5;
+                    TurnSpeed = -0.5;
                 }
 
                 if(gamepad1.y){
@@ -130,12 +130,31 @@ public class RobotTeleOp extends LinearOpMode {
                     robot.servoBar.setPosition(params.Bar_Down);
                     robot.servoWrist.setPosition(params.Wrist_Down);
                     robot.servoBucket.setPosition(params.Bucket_Down);
-                    robot.servoIntake.setPower(.25);
 
                 }   // end of if(gamepad1.x)
 
                 if(gamepad1.a) {
+                    robot.servoBucket.setPosition(params.Bucket_Dump);
 
+                }
+                if(gamepad1.b) {
+                    robot.servoBucket.setPosition(params.Bucket_Down);
+                    mBase = params.LIFT_RESET;
+                }
+                if(gamepad1.dpad_up) {
+                    mBase = params.LIFT_Top_B;
+                }
+                if(gamepad1.dpad_down) {
+                    mBase = params.LIFT_Bottom_B;
+                }
+                if(gamepad1.right_bumper) {
+                    robot.servoIntake.setPower(.25);
+                }
+                if(gamepad1.left_bumper) {
+                    robot.servoIntake.setPower(-.25);
+                }
+                if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
+                    robot.servoIntake.setPower(0);
                 }
 
                     // limit the max and min value of mBase

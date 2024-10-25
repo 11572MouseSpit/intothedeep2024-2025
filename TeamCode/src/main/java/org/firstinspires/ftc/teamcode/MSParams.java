@@ -13,7 +13,7 @@ public class MSParams {
     public final double ALIGN_ARM_SCORE = 0.87;
     public final double ALIGN_ARM_HIGH = 0.0;
 
-    public final double ExtendRight_IN = 0.6;
+    public final double ExtendRight_IN = 0.5;
     public final double ExtendRight_OUT = 1.0;
     public final double ExtendRight_CATCH = 0.7;
     public final double Extend_Catch = 0.3;
@@ -23,14 +23,14 @@ public class MSParams {
     public final double Bar_Down = 0.5;
     public final double Bucket_Down = 0.0;
     public final double Bucket_Catch = 0.2;
-    public final double Bucket_Dump = 0.5;
-    public final int LIFT_Bottom_B = 200;
+    public final double Bucket_Dump = 0.7;
+    public final int LIFT_Bottom_B = 2000;
     public final int LIFT_RESET = 0;
-    public final int LIFT_MIN_LOW=0;
-    public final int LIFT_MAX_HIGH = 500;
+    public final int LIFT_MIN_LOW = 0;
+    public final int LIFT_MAX_HIGH = 3000;
     public final double LIFT_POWER=0.5;
-    public final int LIFT_Top_B =400 ;
-    public final double Wrist_Up = 0.5;
+    public final int LIFT_Top_B = 3000 ;
+    public final double Wrist_Up = 0.6;
     public final double Wrist_Down = 0;
 
 }
