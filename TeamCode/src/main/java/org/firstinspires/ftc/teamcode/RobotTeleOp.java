@@ -94,13 +94,17 @@ public class RobotTeleOp extends LinearOpMode {
             int hangPosition = 0;
             int mBase = params.LIFT_RESET;
             while (opModeIsActive()) {
-                stickDrive = this.gamepad1.left_stick_x * DriveSpeed;
+                stickDrive = this.gamepad1.left_stick_y * DriveSpeed;
                 turn = this.gamepad1.right_stick_x * TurnSpeed;
-                strafe = this.gamepad1.left_stick_y * StrafeSpeed;
+                strafe = this.gamepad1.left_stick_x * StrafeSpeed;
 
-                drive.StrafeDrive(stickDrive, strafe, turn);
+                DriveSpeed = -1;
+                StrafeSpeed = -1;
+                TurnSpeed = -1;
 
+                drive.StrafeDrive(stickDrive, turn, strafe);
 
+/*
                 if (gamepad1.left_bumper) {
                     DriveSpeed = -1;
                     StrafeSpeed = -1;
@@ -110,8 +114,8 @@ public class RobotTeleOp extends LinearOpMode {
                     StrafeSpeed = -0.5;
                     TurnSpeed = -0.5;
                 }
-
-                if(gamepad1.y){
+*/
+                if (gamepad1.y) {
                     // What Happens when we hit Y - Dump to transfer
 
                     robot.servoExtendRight.setPosition(params.ExtendRight_CATCH);
@@ -122,7 +126,7 @@ public class RobotTeleOp extends LinearOpMode {
                     mBase = params.LIFT_RESET;
                 }   // end of if(gamepad1.y)
 
-                if(gamepad1.x){
+                if (gamepad1.x) {
                     // Intake Samples
 
                     robot.servoExtendRight.setPosition(params.ExtendRight_OUT);
@@ -133,30 +137,45 @@ public class RobotTeleOp extends LinearOpMode {
 
                 }   // end of if(gamepad1.x)
 
-                if(gamepad1.a) {
+                if (gamepad1.a) {
                     robot.servoBucket.setPosition(params.Bucket_Dump);
 
                 }
-                if(gamepad1.b) {
+                if (gamepad1.b) {
                     robot.servoBucket.setPosition(params.Bucket_Down);
                     mBase = params.LIFT_RESET;
                 }
-                if(gamepad1.dpad_up) {
+                if (gamepad1.dpad_up) {
+                    robot.servoWrist.setPosition(.4);
                     mBase = params.LIFT_Top_B;
                 }
-                if(gamepad1.dpad_down) {
+                if (gamepad1.dpad_down) {
+
                     mBase = params.LIFT_Bottom_B;
                 }
-                if(gamepad1.right_bumper) {
+                if (gamepad1.right_bumper) {
                     robot.servoIntake.setPower(.25);
                 }
-                if(gamepad1.left_bumper) {
+                if (gamepad1.left_bumper) {
                     robot.servoIntake.setPower(-.25);
                 }
                 if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
                     robot.servoIntake.setPower(0);
                 }
 
+                //Rise Slides
+
+                    if (gamepad1.right_trigger>0.3) {
+
+                        mBase=mBase+3;
+
+                    }
+
+                //Lower Slides
+                if (gamepad1.left_trigger>0.3) {
+
+                    mBase=mBase-3;
+                }
                     // limit the max and min value of mBase
                 mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
                 drive.liftPosition(mBase);
@@ -170,6 +189,34 @@ public class RobotTeleOp extends LinearOpMode {
                 telemetry.addData("Eli Pink Shirt", "yes");
                 telemetry.update();
 
+/*
+                if(gamepad2.dpad_down){
+                    telemetry.addData("motor = ","right Front");
+                    robot.motorRF.setPower(1);
+                } else {
+                    robot.motorRF.setPower(0);
+                }
+                if(gamepad2.dpad_up){
+                    telemetry.addData("motor = ","left Front");
+                    robot.motorLF.setPower(1);
+                } else {
+                    robot.motorLF.setPower(0);
+
+                }
+                if(gamepad2.dpad_right){
+                    telemetry.addData("motor = ","left rear");
+                    robot.motorLR.setPower(1);
+                } else {
+                    robot.motorLR.setPower(0);
+
+                }
+                if(gamepad2.dpad_left){
+                    telemetry.addData("motor = ","right rear");
+                    robot.motorRR.setPower(1);
+                } else {
+                    robot.motorRR.setPower(0);
+                }
+*/
             }
         }
 }

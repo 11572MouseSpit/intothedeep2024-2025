@@ -89,7 +89,7 @@ public class HWProfile2 {
         hwMap = ahwMap;
 
         motorLF = ahwMap.get(DcMotorEx.class,"motorLF");
-        motorLF.setDirection(DcMotor.Direction.FORWARD);
+        motorLF.setDirection(DcMotor.Direction.REVERSE);
         motorLF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLF.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         motorLF.setPower(0);
@@ -104,7 +104,7 @@ public class HWProfile2 {
         motorLR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorRF = ahwMap.get(DcMotorEx.class,"motorRF");
-        motorRF.setDirection(DcMotor.Direction.REVERSE);
+        motorRF.setDirection(DcMotor.Direction.FORWARD);
         motorRF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRF.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         motorRF.setPower(0);
