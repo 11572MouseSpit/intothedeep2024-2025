@@ -100,7 +100,7 @@ public class RobotTeleOp extends LinearOpMode {
 
                 DriveSpeed = -1;
                 StrafeSpeed = -1;
-                TurnSpeed = -1;
+                TurnSpeed = -0.5;
 
                 drive.StrafeDrive(stickDrive, turn, strafe);
 
