@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.HWProfile2;
 import org.firstinspires.ftc.teamcode.MSParams;
 
@@ -171,13 +174,16 @@ public class DriveMecanumFTCLib {
                 opMode.telemetry.update();
                 opMode.idle();
 
+                YawPitchRollAngles orientation = robot.imu.getRobotYawPitchRollAngles();
+                AngularVelocity angularVelocity = robot.imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+
                 dashTelemetry.put("p20 - drive Telemetry Data", "");
                 dashTelemetry.put("p25 - Drive Power                  = ", drivePower);
                 dashTelemetry.put("p24 - Target Distance              = ", distance);
                 dashTelemetry.put("p21 - rflrPower                    = ", rflrPower);
                 dashTelemetry.put("p22 - lfrrPower                    = ", lfrrPower);
                 dashTelemetry.put("p26 - Distance Traveled            = ", distanceTraveled);
-                dashTelemetry.put("p23 - PID IMU Angle X              = ", robot.imu.getAngles()[0]);
+                dashTelemetry.put("p23 - PID IMU Angle X              = ", orientation.getYaw(AngleUnit.DEGREES));
                 dashboard.sendTelemetryPacket(dashTelemetry);
 
             }   // end of while (opMode.opModeIsActive() && active) loop
@@ -188,7 +194,7 @@ public class DriveMecanumFTCLib {
             dashTelemetry.put("p21 - rflrPower                    = ", rflrPower);
             dashTelemetry.put("p22 - lfrrPower                    = ", lfrrPower);
             dashTelemetry.put("p26 - Distance Traveled            = ", distanceTraveled);
-            dashTelemetry.put("p23 - PID IMU Angle X              = ", robot.imu.getAngles()[0]);
+//            dashTelemetry.put("p23 - PID IMU Angle X              = ", robot.imu.getAngles()[0]);
             dashboard.sendTelemetryPacket(dashTelemetry);
 
     }   // close driveDistance method
@@ -236,8 +242,8 @@ public class DriveMecanumFTCLib {
         dashTelemetry.put("p00 - PIDTurn Telemetry Data - PRE LOOP", "");
         dashTelemetry.put("p00a - Target Error (Radians)       = ", targetError);
         dashTelemetry.put("p01 - PID IMU Angle X              = ", getZAngle());
-        dashTelemetry.put("p02 - PID IMU Angle Y              = ", robot.imu.getAngles()[1]);
-        dashTelemetry.put("p03 - PID IMU Angle Z              = ", robot.imu.getAngles()[2]);
+//        dashTelemetry.put("p02 - PID IMU Angle Y              = ", robot.imu.getAngles()[1]);
+//        dashTelemetry.put("p03 - PID IMU Angle Z              = ", robot.imu.getAngles()[2]);
         dashTelemetry.put("p04 - targetAngle (Radians)        = ", targetAngle);
         dashTelemetry.put("p05 - Current Angle (Radians)      = ", getZAngleRadians());
         dashTelemetry.put("p06 - Angle Error (Radians)        = ", error);
@@ -276,8 +282,8 @@ public class DriveMecanumFTCLib {
 
             dashTelemetry.put("p00 - PIDTurn Telemetry Data", "");
             dashTelemetry.put("p01 - PID IMU Angle X              = ", getZAngle());
-            dashTelemetry.put("p02 - PID IMU Angle Y              = ", robot.imu.getAngles()[1]);
-            dashTelemetry.put("p03 - PID IMU Angle Z              = ", robot.imu.getAngles()[2]);
+//            dashTelemetry.put("p02 - PID IMU Angle Y              = ", robot.imu.getAngles()[1]);
+//            dashTelemetry.put("p03 - PID IMU Angle Z              = ", robot.imu.getAngles()[2]);
             dashTelemetry.put("p04 - targetAngle (Radians)        = ", targetAngle);
             dashTelemetry.put("p05 - Current Angle (Radians)      = ", getZAngleRadians());
             dashTelemetry.put("p06 - Angle Error (Radians)        = ", error);
@@ -369,14 +375,17 @@ public class DriveMecanumFTCLib {
      * Method:  getZAngle()
      ******************************************************************************************/
     public double getZAngle(){
-        return (-robot.imu.getAbsoluteHeading());
+        YawPitchRollAngles orientation = robot.imu.getRobotYawPitchRollAngles();
+        AngularVelocity angularVelocity = robot.imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+        return (orientation.getYaw(AngleUnit.DEGREES));
     }   // close getZAngle method
 
     /******************************************************************************************
      * Method:  getZAngleRadians()
      ******************************************************************************************/
     public double getZAngleRadians(){
-        return (Math.toRadians(-robot.imu.getAbsoluteHeading()));
+        return 1;
+//        return (Math.toRadians(-robot.imu.getAbsoluteHeading()));
     }   // close getZAngle method
 
     /* #########################################################################################

@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -53,7 +55,8 @@ public class HWProfile2 {
      * Hardware devices
      */
 
-    public RevIMU imu = null;
+//    public RevIMU imu = null;
+    public IMU imu;
 
     public DcMotorEx motorLF;
     public DcMotorEx motorLR;
@@ -149,10 +152,34 @@ public class HWProfile2 {
         //servoBucket.setPosition(0.5);
         //servoExtendRight.setPosition(0);
 
+        // Retrieve and initialize the IMU.
+        // This sample expects the IMU to be in a REV Hub and named "imu".
+        imu = ahwMap.get(IMU.class, "imu");
 
-        imu = new RevIMU(ahwMap);
-        imu.init();
+        /* Define how the hub is mounted on the robot to get the correct Yaw, Pitch and Roll values.
+         *
+         * Two input parameters are required to fully specify the Orientation.
+         * The first parameter specifies the direction the printed logo on the Hub is pointing.
+         * The second parameter specifies the direction the USB connector on the Hub is pointing.
+         * All directions are relative to the robot, and left/right is as-viewed from behind the robot.
+         *
+         * If you are using a REV 9-Axis IMU, you can use the Rev9AxisImuOrientationOnRobot class instead of the
+         * RevHubOrientationOnRobot class, which has an I2cPortFacingDirection instead of a UsbFacingDirection.
+         */
 
+        /* The next two lines define Hub orientation.
+         * The Default Orientation (shown) is when a hub is mounted horizontally with the printed logo pointing UP and the USB port pointing FORWARD.
+         *
+         * To Do:  EDIT these two lines to match YOUR mounting configuration.
+         */
+        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
+
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+
+        // Now initialize the IMU with this mounting orientation
+        // Note: if you choose two conflicting directions, this initialization will cause a code exception.
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         /* Webcam device will go here */
 //        webcam = hwMap.get(WebcamName.class, "Webcam 1");
