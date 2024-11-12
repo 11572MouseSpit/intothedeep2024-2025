@@ -28,7 +28,7 @@ public class MSParams {
     public final int LIFT_RESET = 0;
     public final int LIFT_MIN_LOW = 0;
     public final int LIFT_MAX_HIGH = 3400;
-    public final double LIFT_POWER=0.5;
+    public final double LIFT_POWER=.5;
     public final int LIFT_Top_B = 3300 ;
     public final double Wrist_Up = 0.6;
     public final double Wrist_Down = 0;
