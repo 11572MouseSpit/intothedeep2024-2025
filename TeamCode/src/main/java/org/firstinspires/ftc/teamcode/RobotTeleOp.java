@@ -62,6 +62,7 @@ public class RobotTeleOp extends LinearOpMode {
         private double DriveSpeed = 1;
         private double TurnSpeed = 1;
         private double StrafeSpeed = 1;
+        private double testPosition = 0;
 
         private boolean IsOverrideActivated = false;
 
@@ -71,7 +72,7 @@ public class RobotTeleOp extends LinearOpMode {
             telemetry.addData("Status:", "Initialized");
             telemetry.update();
 
-            robot.servoIntake.setPower(0);
+            robot.servoClaw.setPosition(0.9);
             robot.servoWrist.setPosition(0);
             robot.servoBar.setPosition(0);
             robot.servoExtend.setPosition(params.Extend_IN);
@@ -145,6 +146,17 @@ public class RobotTeleOp extends LinearOpMode {
                     robot.servoBucket.setPosition(params.Bucket_Down);
                     mBase = params.LIFT_RESET;
                 }
+
+                if(gamepad1.dpad_left){
+                    testPosition = testPosition+0.05;
+                    robot.servoClaw.setPosition(testPosition);
+                }
+
+                if(gamepad1.dpad_left){
+                    testPosition = testPosition-0.05;
+                    robot.servoClaw.setPosition(testPosition);
+                }
+
                 if (gamepad1.dpad_up) {
                     robot.servoWrist.setPosition(.4);
                     mBase = params.LIFT_Top_B;
@@ -154,13 +166,13 @@ public class RobotTeleOp extends LinearOpMode {
                     mBase = params.LIFT_Bottom_B;
                 }
                 if (gamepad1.right_bumper) {
-                    robot.servoIntake.setPower(.25);
+                    robot.servoClaw.setPosition(params.CLAW_OPEN);
                 }
                 if (gamepad1.left_bumper) {
-                    robot.servoIntake.setPower(-.25);
+                    robot.servoClaw.setPosition(params.CLAW_CLOSE);
                 }
                 if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
-                    robot.servoIntake.setPower(0);
+                    robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
                 }
 
                 //Rise Slides
@@ -181,6 +193,7 @@ public class RobotTeleOp extends LinearOpMode {
                 drive.liftPosition(mBase);
 
 
+                telemetry.addData("TestPostion = ", testPosition);
                 telemetry.addData("Status", "Running");
                 telemetry.addData("Left Power", leftPower);
                 telemetry.addData("Right Power", rightPower);

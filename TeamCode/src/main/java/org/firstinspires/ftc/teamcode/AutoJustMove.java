@@ -74,7 +74,7 @@ public class AutoJustMove extends LinearOpMode {
         telemetry.addData("Status:", "Initialized");
         telemetry.update();
 
-        robot.servoIntake.setPower(0);
+        robot.servoClaw.setPosition(0);
         robot.servoWrist.setPosition(0);
         robot.servoBar.setPosition(0);
         robot.servoExtend.setPosition(params.Extend_IN);

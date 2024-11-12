@@ -65,12 +65,13 @@ public class HWProfile2 {
 
     public DcMotorEx motorLift;
 
-    public CRServo servoIntake;
     public Servo servoWrist;
     public Servo servoBar;
     public Servo servoExtend;
-    public Servo servoBucket;
     public Servo servoExtendRight;
+    public Servo servoBucket;
+    public Servo servoClaw;
+    public Servo servoTwist;
 
 
 
@@ -137,7 +138,8 @@ public class HWProfile2 {
          **/
         //servoGrabber = hwMap.servo.get("servoGrabber");
         // servoGrabber2 = hwMap.servo.get("servoGrabber2");
-        servoIntake = ahwMap.crservo.get("servoIntake");
+        servoClaw = ahwMap.servo.get("servoClaw");
+        servoTwist = ahwMap.servo.get("servoTwist");
         servoWrist = ahwMap.servo.get("servoWrist");
         servoBar = ahwMap.servo.get("servoBar");
         servoExtend = ahwMap.servo.get("servoExtend");
