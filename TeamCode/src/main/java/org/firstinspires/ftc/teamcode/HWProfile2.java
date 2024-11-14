@@ -1,13 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.hardware.RevIMU;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -72,6 +67,7 @@ public class HWProfile2 {
     public Servo servoBucket;
     public Servo servoClaw;
     public Servo servoTwist;
+    public Servo servoSpice;
 
 
 
@@ -145,6 +141,7 @@ public class HWProfile2 {
         servoExtend = ahwMap.servo.get("servoExtend");
         servoBucket = ahwMap.servo.get("servoBucket");
         servoExtendRight = ahwMap.servo.get("servoExtendRight");
+        servoSpice = ahwMap.servo.get("servoSpice");
 
         // Zeroing Servos
         //servoIntake.setPower(0.5);

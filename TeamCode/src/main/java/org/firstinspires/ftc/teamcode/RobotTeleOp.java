@@ -93,10 +93,12 @@ public class RobotTeleOp extends LinearOpMode {
             double leftPower = 0;
             double rightPower = 0;
             double clawPosition = params.CLAW_CLOSE;
+            double spicePosition = params.SPICE_CLOSE;
             double barPosition = params.Bar_Up;
             double TwistPosition = params.TWIST_HORIZONTAL;
             ElapsedTime buttonPressTimer = new ElapsedTime();
             boolean clawOpen = false;
+
 
 
 //        double armUpDown;
@@ -149,6 +151,7 @@ public class RobotTeleOp extends LinearOpMode {
                     //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
                     TwistPosition = params.TWIST_HORIZONTAL;
                     clawPosition = params.CLAW_OPEN;
+                    spicePosition = params.SPICE_OPEN;
                     clawOpen = true;
                     //robot.servoClaw.setPosition(params.CLAW_OPEN);
 
@@ -165,12 +168,12 @@ public class RobotTeleOp extends LinearOpMode {
                     mBase = params.LIFT_RESET;
                 }
 
-                if(gamepad1.dpad_left){
-                  //  robot.servoTwist.setPosition(params.TWIST_VERTICAL);
-                    TwistPosition = params.TWIST_VERTICAL;
+               if(gamepad1.dpad_left){
+                  robot.servoTwist.setPosition(params.TWIST_VERTICAL);
+                   TwistPosition = params.TWIST_VERTICAL;
                 }
 
-                if(gamepad1.dpad_right){
+               if(gamepad1.dpad_right){
                  //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
                     TwistPosition = params.TWIST_HORIZONTAL;
                 }
@@ -178,12 +181,14 @@ public class RobotTeleOp extends LinearOpMode {
                 if (gamepad1.dpad_up) {
                     //robot.servoClaw.setPosition(params.CLAW_OPEN);
                     clawPosition = params.CLAW_OPEN;
+                    spicePosition = params.SPICE_OPEN;
                     clawOpen = true;
                     robot.servoWrist.setPosition(params.Wrist_Release);
                     mBase = params.LIFT_Top_B;
                 }
                 if (gamepad1.dpad_down) {
                     clawPosition = params.CLAW_OPEN;
+                    spicePosition = params.SPICE_OPEN;
                     clawOpen = true;
                     //robot.servoClaw.setPosition(params.CLAW_OPEN);
                     robot.servoWrist.setPosition(params.Wrist_Release);
@@ -192,10 +197,12 @@ public class RobotTeleOp extends LinearOpMode {
                 if (gamepad1.right_bumper) {
                     if((buttonPressTimer.time() > 0.25) && clawOpen){
                         clawPosition = params.CLAW_CLOSE;
+                        spicePosition = params.SPICE_CLOSE;
                         clawOpen = false;
                         buttonPressTimer.reset();
                     } else if(buttonPressTimer.time() > 0.25) {
                         clawPosition = params.CLAW_OPEN;
+                        spicePosition = params.SPICE_OPEN;
                         clawOpen = true;
                         buttonPressTimer.reset();
                     }
@@ -233,6 +240,7 @@ public class RobotTeleOp extends LinearOpMode {
                     // limit the max and min value of mBase
                 // robot.servoBar.setPosition(barPosition);
                 robot.servoClaw.setPosition(clawPosition);
+                robot.servoSpice.setPosition(spicePosition);
                 robot.servoTwist.setPosition(TwistPosition);
 
                 mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
@@ -276,6 +284,10 @@ public class RobotTeleOp extends LinearOpMode {
                     robot.motorRR.setPower(0);
                 }
 */
+                if (gamepad2.dpad_right){
+
+                        }
+                }
             }
         }
-}
+

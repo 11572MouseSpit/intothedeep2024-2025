@@ -27,10 +27,10 @@ public class MSParams {
     public final int LIFT_Bottom_B = 2000;
     public final int LIFT_RESET = 0;
     public final int LIFT_MIN_LOW = 0;
-    public final int LIFT_MAX_HIGH = 3400;
+    public final int LIFT_MAX_HIGH = 2265;
     public final double LIFT_POWER = 0.5;
     public final int LIFT_Top_B = 3300 ;
-    public final double Wrist_Up = .9;
+    public final double Wrist_Up = .98;
     public final double Wrist_Release = 0.4;
     public final double Wrist_Down = .1;
 
@@ -40,5 +40,7 @@ public class MSParams {
     public final double TWIST_HORIZONTAL = 0.3;
     public final double TWIST_VERTICAL = 0;
 
+    public final double SPICE_OPEN = 1;
+    public final double SPICE_CLOSE = 0.4;
 
 }

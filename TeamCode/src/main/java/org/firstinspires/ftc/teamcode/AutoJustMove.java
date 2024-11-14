@@ -74,18 +74,23 @@ public class AutoJustMove extends LinearOpMode {
         telemetry.addData("Status:", "Initialized");
         telemetry.update();
 
-        robot.servoClaw.setPosition(0);
-        robot.servoWrist.setPosition(0);
-        robot.servoBar.setPosition(0);
+        robot.servoClaw.setPosition(params.CLAW_CLOSE);
+        robot.servoSpice.setPosition(params.SPICE_CLOSE);
+        robot.servoWrist.setPosition(params.Wrist_Up);
+        robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
+        robot.servoBar.setPosition(params.Bar_Up);
         robot.servoExtend.setPosition(params.Extend_IN);
         robot.servoExtendRight.setPosition(params.ExtendRight_IN);
-        robot.servoBucket.setPosition(0);
+        robot.servoBucket.setPosition(params.Bucket_Catch);
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        drive.setDrivePower(1,1,1,1);
+       drive.driveDistance(0, 5);
 
-//        drive.driveDistance(0, 50);
+
+ /*
         robot.motorRR.setPower(1);
         robot.motorRF.setPower(1);
         robot.motorLF.setPower(1);
@@ -95,7 +100,7 @@ public class AutoJustMove extends LinearOpMode {
         robot.motorRF.setPower(0);
         robot.motorLF.setPower(0);
         robot.motorLR.setPower(0);
-
+*/
 
     }
 }
