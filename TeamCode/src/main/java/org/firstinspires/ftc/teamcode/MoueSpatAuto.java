@@ -30,11 +30,9 @@ package org.firstinspires.ftc.teamcode;
 
 
 
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanumFTCLib;
@@ -51,8 +49,8 @@ import org.firstinspires.ftc.teamcode.Libs.DriveMecanumFTCLib;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Robot: AutoJustMove", group="Robot")
-public class AutoJustMove extends LinearOpMode {
+@Autonomous(name="Robot: MoueSpatAuto", group="Robot")
+public class MoueSpatAuto extends LinearOpMode {
 
 
     private final static HWProfile2 robot = new HWProfile2();
@@ -66,6 +64,7 @@ public class AutoJustMove extends LinearOpMode {
     private double DriveSpeed = 1;
     private double TurnSpeed = 1;
     private double StrafeSpeed = 1;
+    int mBase = 900;
 
     private boolean IsOverrideActivated = false;
 
@@ -78,7 +77,7 @@ public class AutoJustMove extends LinearOpMode {
         robot.servoSpice.setPosition(params.SPICE_CLOSE);
         robot.servoWrist.setPosition(params.Wrist_Up);
         robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
-        robot.servoBar.setPosition(params.Bar_Up);
+        robot.servoBar.setPosition(params.Bar_Middle);
         robot.servoExtend.setPosition(params.Extend_IN);
         robot.servoExtendRight.setPosition(params.ExtendRight_IN);
         robot.servoBucket.setPosition(params.Bucket_Catch);
@@ -86,21 +85,56 @@ public class AutoJustMove extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        drive.setDrivePower(1,1,1,1);
-       drive.driveDistance(0, 5);
+        // raise slides
+        mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
+        drive.liftPosition(mBase);
 
-
- /*
+        //wait for slides
+        sleep(1000);
+        //drive to goal
+        robot.motorRR.setPower(-1);
+        robot.motorRF.setPower(-1);
+        robot.motorLF.setPower(-1);
+        robot.motorLR.setPower(-1);
+        //wait
+        sleep(500);
+        //stop
+        robot.motorRR.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorLF.setPower(0);
+        robot.motorLR.setPower(0);
+        //wait
+        sleep(3000);
+        //raise slides
+        mBase = 1900;
+        mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
+        drive.liftPosition(mBase);
+        sleep(1500);
+        //release spice
+        robot.servoSpice.setPosition(params.SPICE_OPEN);
+        //lower slides
+        mBase = 400;
+        mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
+        drive.liftPosition(mBase);
+        //wait for slides
+        sleep(1000);
+        //move forward
         robot.motorRR.setPower(1);
         robot.motorRF.setPower(1);
         robot.motorLF.setPower(1);
         robot.motorLR.setPower(1);
         sleep(500);
+        //stop
         robot.motorRR.setPower(0);
         robot.motorRF.setPower(0);
         robot.motorLF.setPower(0);
         robot.motorLR.setPower(0);
-*/
-
+        sleep(400);
+        //stafe
+        robot.motorRR.setPower(-1);
+        robot.motorRF.setPower(1);
+        robot.motorLF.setPower(-1);
+        robot.motorLR.setPower(1);
+        sleep(1000);
     }
 }
