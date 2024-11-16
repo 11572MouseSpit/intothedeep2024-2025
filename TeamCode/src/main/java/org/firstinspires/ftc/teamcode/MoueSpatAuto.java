@@ -136,5 +136,13 @@ public class MoueSpatAuto extends LinearOpMode {
         robot.motorLF.setPower(-1);
         robot.motorLR.setPower(1);
         sleep(1000);
+        drive.motorsHalt();
+        //Lower bucket to zero
+
+        mBase = 0;
+        mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
+        drive.liftPosition(mBase);
+        sleep(1000);
+
     }
 }
