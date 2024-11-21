@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.OpModes;
 
 /* Copyright (c) 2019 FIRST. All rights reserved.
  *
@@ -33,14 +33,13 @@ import static com.qualcomm.robotcore.util.ElapsedTime.Resolution.SECONDS;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.hardware.CSAutoParams;
-import org.firstinspires.ftc.teamcode.hardware.HWProfile;
-import org.firstinspires.ftc.teamcode.libraries.RRMechOps;
+import org.firstinspires.ftc.teamcode.Hardware.MSParams;
+import org.firstinspires.ftc.teamcode.Hardware.HWProfile2;
 
 //@Disabled
 @Autonomous(name = "Auto Samples - EXPERIMENTAL", group = "Competition", preselectTeleOp = "GoBildaRi3D2425")
@@ -59,10 +58,9 @@ public class RRAutoBase2 extends LinearOpMode{
 
     public static START_POSITION startPosition;
 
-    public final static HWProfile robot = new HWProfile();
+    public final static HWProfile2 robot = new HWProfile2();
     public LinearOpMode opMode = this;
-    public CSAutoParams params = new CSAutoParams();
-    public RRMechOps mechOps = new RRMechOps(robot, opMode, params);
+    public MSParams params = new MSParams();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -72,8 +70,6 @@ public class RRAutoBase2 extends LinearOpMode{
 
         //Key Pay inputs to selecting Starting Position of robot
         selectStartingPosition();
-        mechOps.clawClose();
-        mechOps.rotateClaw(robot.WRIST_FOLDED_OUT);
 
         while (!isStopRequested() && !opModeIsActive()) {
             // Wait for the DS start button to be touched.
@@ -109,7 +105,7 @@ public class RRAutoBase2 extends LinearOpMode{
         Pose2d parkPrepPose = new Pose2d(0, 0, 0);
         Pose2d parkPose = new Pose2d(0, 0, 0);
         double waitSecondsBeforeDrop = 0;
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initPose);
+        MecanumDrive drive;
 
 //        switch (startPosition) {
 //            case BLUE_SAMPLES:
