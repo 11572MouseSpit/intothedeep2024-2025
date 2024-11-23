@@ -85,10 +85,17 @@ public class MoueSpatAuto extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+       // sleep(14000);
         // raise slides
         mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
         drive.liftPosition(mBase);
-
+//Straff to side
+        //robot.motorRR.setPower(-1);
+     //   robot.motorRF.setPower(1);
+      //  robot.motorLF.setPower(-1);
+    //    robot.motorLR.setPower(1);
+      //  sleep(1000);
+       // drive.motorsHalt();
         //wait for slides
         sleep(1000);
         //drive to goal
