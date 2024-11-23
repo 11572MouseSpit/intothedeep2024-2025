@@ -19,8 +19,8 @@ public class MSParams {
     public final double Extend_Catch = 0.3;
     public final double Extend_IN = 0.4;
     public final double Extend_OUT = 0.0;
-    public final double Bar_Up = 0.0;
-    public final double Bar_Down = 0.32;
+    public final double Bar_Up = 0.32;
+    public final double Bar_Down = 0.7;
     public final double Bar_Middle = 0.16;
     public final double Bucket_Down = 0.0;
     public final double Bucket_Catch = 0.08;

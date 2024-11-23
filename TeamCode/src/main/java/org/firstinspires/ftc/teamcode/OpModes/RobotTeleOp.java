@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.Hardware.HWProfile2;
 import org.firstinspires.ftc.teamcode.Hardware.MSParams;
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanumFTCLib;
@@ -250,7 +251,15 @@ public class RobotTeleOp extends LinearOpMode {
                 drive.liftPosition(mBase);
 
 
-                telemetry.addData("TestPostion = ", testPosition);
+                telemetry.addData("Left Front Motor Encoder = ", robot.motorLF.getCurrentPosition());
+                telemetry.addData("Left Front Motor Current = ", robot.motorLF.getCurrent(CurrentUnit.AMPS));
+                telemetry.addData("Left Rear Motor Encoder = ", robot.motorLR.getCurrentPosition());
+                telemetry.addData("Left Rear Motor Current = ", robot.motorLR.getCurrent(CurrentUnit.AMPS));
+                telemetry.addData("Right Front Motor Encoder = ", robot.motorRF.getCurrentPosition());
+                telemetry.addData("Right Front Motor Current = ", robot.motorRF.getCurrent(CurrentUnit.AMPS));
+                telemetry.addData("Right Rear Motor Encoder = ", robot.motorRR.getCurrentPosition());
+                telemetry.addData("Right Rear Motor Current = ", robot.motorRR.getCurrent(CurrentUnit.AMPS));
+                telemetry.addData("TestPosition = ", testPosition);
                 telemetry.addData("Status", "Running");
                 telemetry.addData("Left Power", leftPower);
                 telemetry.addData("Right Power", rightPower);
