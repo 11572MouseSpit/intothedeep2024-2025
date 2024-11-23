@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.HWProfile2;
-import org.firstinspires.ftc.teamcode.MSParams;
+import org.firstinspires.ftc.teamcode.Hardware.HWProfile2;
+import org.firstinspires.ftc.teamcode.Hardware.MSParams;
 
 public class DriveMecanumFTCLib {
 
