@@ -20,7 +20,7 @@ public class MSParams {
     public final double Extend_IN = 0.4;
     public final double Extend_OUT = 0.0;
     public final double Bar_Up = 0.32;
-    public final double Bar_Down = 0.7;
+    public final double Bar_Down = 0.67;
     public final double Bar_Middle = 0.16;
     public final double Bucket_Down = 0.0;
     public final double Bucket_Catch = 0.08;
@@ -33,7 +33,7 @@ public class MSParams {
     public final int LIFT_Top_B = 3300 ;
     public final double Wrist_Up = .98;
     public final double Wrist_Release = 0.4;
-    public final double Wrist_Down = .1;
+    public final double Wrist_Down = 0;
 
     public final double CLAW_OPEN = 0.65;
     public final double CLAW_CLOSE = 0.3;
