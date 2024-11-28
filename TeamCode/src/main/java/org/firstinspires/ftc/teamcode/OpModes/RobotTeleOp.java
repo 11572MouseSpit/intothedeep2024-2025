@@ -166,6 +166,7 @@ public class RobotTeleOp extends LinearOpMode {
 
                 }
                 if (gamepad1.b) {
+                    //circle
                     robot.servoWrist.setPosition(params.Wrist_Release);
                     robot.servoBucket.setPosition(params.Bucket_Down);
 
@@ -173,13 +174,12 @@ public class RobotTeleOp extends LinearOpMode {
                 }
 
                if(gamepad1.dpad_left){
-                  robot.servoTwist.setPosition(params.TWIST_VERTICAL);
-                   TwistPosition = params.TWIST_VERTICAL;
+                   mBase = params.LIFT_CLIP_HIGH;
                 }
 
                if(gamepad1.dpad_right){
                  //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
-                    TwistPosition = params.TWIST_HORIZONTAL;
+                   mBase = params.LIFT_CLIP_LOW;
                 }
 
                 if (gamepad1.dpad_up) {
