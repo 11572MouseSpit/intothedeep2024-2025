@@ -134,10 +134,10 @@ public class RRAutoSpecimen extends LinearOpMode{
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
         midwayPose1 = new Pose2d(-22, -22, 90); //drop samples
         midwayPose2 = new Pose2d(-20, -47, Math.toRadians(180)); //moving out to to go grabSpecimenPosition
-        midwayPose3 = new Pose2d(-20, 17, Math.toRadians(0));//back to go for specimens
+        midwayPose3 = new Pose2d(-25, 15, Math.toRadians(0));//back to go for specimens
         midwayPose4 = new Pose2d(-50, 30, Math.toRadians(-90)); // out to push samples back
 
-        parkPose = new Pose2d(3, 0, 0);
+        parkPose = new Pose2d(0, 55, Math.toRadians(-180));
 
 
         // Raise Arm to high bar scoring position
@@ -368,7 +368,7 @@ public class RRAutoSpecimen extends LinearOpMode{
 
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            .strafeToLinearHeading(parkPose.position, parkPose.heading)
                             .build());
         }
     }
