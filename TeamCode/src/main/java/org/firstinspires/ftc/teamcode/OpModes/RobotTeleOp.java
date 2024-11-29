@@ -73,7 +73,7 @@ public class RobotTeleOp extends LinearOpMode {
 
         public void runOpMode()
         {
-            robot.init(hardwareMap);
+            robot.init(hardwareMap, true);
             telemetry.addData("Status:", "Initialized");
             telemetry.update();
 
@@ -168,7 +168,7 @@ public class RobotTeleOp extends LinearOpMode {
                 if (gamepad1.b) {
                     //circle
                     robot.servoWrist.setPosition(params.Wrist_Release);
-                    robot.servoBucket.setPosition(params.Bucket_Down);
+                    robot.servoBucket.setPosition(params.Bucket_Catch);
 
                     mBase = params.LIFT_RESET;
                 }

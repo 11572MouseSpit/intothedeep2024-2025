@@ -47,6 +47,7 @@ public class MSMechOps {
     public void openClaw(){
         robot.servoSpice.setPosition(params.CLAW_OPEN);
     }
+
     public void closeClaw() {
         robot.servoSpice.setPosition(params.CLAW_CLOSE);
     }           

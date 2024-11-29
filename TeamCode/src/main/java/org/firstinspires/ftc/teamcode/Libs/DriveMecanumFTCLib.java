@@ -345,6 +345,18 @@ public class DriveMecanumFTCLib {
         robot.motorRR.setPower(rightPower - strafePower);
     }
 
+    public void fieldCentricDrive(double drive, double turn, double strafe) {
+
+        double leftPower    = Range.clip(drive - turn, -robot.MAX_DRIVING_POWER, robot.MAX_DRIVING_POWER);
+        double rightPower   = Range.clip(drive + turn, -robot.MAX_DRIVING_POWER, robot.MAX_DRIVING_POWER);
+        double strafePower  =  Range.clip( strafe, -robot.MAX_DRIVING_POWER, robot.MAX_DRIVING_POWER);
+
+        robot.motorLF.setPower(leftPower - strafePower);
+        robot.motorLR.setPower(leftPower + strafePower);
+        robot.motorRF.setPower(rightPower + strafePower);
+        robot.motorRR.setPower(rightPower - strafePower);
+    }
+
     /*******************************************************************************************
      * Method:      calcDistance
      * Function:    Calculates the distance that the robot has traveled based on a starting set of

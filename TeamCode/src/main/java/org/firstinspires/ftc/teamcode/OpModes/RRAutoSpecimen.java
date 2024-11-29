@@ -68,7 +68,7 @@ public class RRAutoSpecimen extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
 
         //TODO: Initialize hardware
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
         mechOps = new MSMechOps(robot, opMode, params);
 
         robot.servoSpice.setPosition(params.SPICE_CLOSE);
@@ -85,6 +85,7 @@ public class RRAutoSpecimen extends LinearOpMode{
             telemetry.addData("Selected Starting Position", startPosition);
             telemetry.addData(">", "Touch Play to start OpMode");
             telemetry.update();
+            robot.servoSpice.setPosition(params.SPICE_CLOSE);
         }
         //Game Play Button  is pressed
         if (opModeIsActive() && !isStopRequested()) {
@@ -97,7 +98,9 @@ public class RRAutoSpecimen extends LinearOpMode{
     public void runAutonoumousMode() {
         //Initialize Pose2d as desired
         Pose2d initPose = new Pose2d(0, 0, 0); // Starting Pose
+        Pose2d specimenPreScoringPosition = new Pose2d(0, 0, 0);
         Pose2d specimenScoringPosition = new Pose2d(0, 0, 0);
+        Pose2d specimenScoringSlide = new Pose2d(0, 0, 0);
         Pose2d sampleScoringPosition = new Pose2d(0, 0, 0);
         Pose2d coloredSample1Position = new Pose2d(0, 0, 0);
         Pose2d coloredSample2Position = new Pose2d(0, 0, 0);
@@ -109,7 +112,7 @@ public class RRAutoSpecimen extends LinearOpMode{
         Pose2d midwayPose1 = new Pose2d(0, 0, 0);
         Pose2d midwayPose2 = new Pose2d(0, 0, 0);
         Pose2d midwayPose3 = new Pose2d(0, 0, 0);
-        Pose2d midwayPose4 = new Pose2d(0,0,0);
+        Pose2d midwayPose4 = new Pose2d(0, 0, 0);
 
         Pose2d parkPrepPose = new Pose2d(0, 0, 0);
         Pose2d parkPose = new Pose2d(0, 0, 0);
@@ -122,167 +125,252 @@ public class RRAutoSpecimen extends LinearOpMode{
         /*****************
          * Set values for RoadRunner Pathing
          */
-
+        specimenPreScoringPosition = new Pose2d(-23, -10, 0);
         specimenScoringPosition = new Pose2d(-33, -10, 0);
-        grabSpecimenPosition = new Pose2d(0, 30, Math.toRadians(-180));
-        coloredSample1Position = new Pose2d(-10, 30, Math.toRadians(-90));
+        specimenScoringSlide = new Pose2d(-33, -15, 0);
+        grabSpecimenPosition = new Pose2d(0, 20, Math.toRadians(-180));
+        coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
         midwayPose1 = new Pose2d(-22, -22, 90); //drop samples
         midwayPose2 = new Pose2d(-20, -47, Math.toRadians(180)); //moving out to to go grabSpecimenPosition
-        midwayPose3 = new Pose2d(-20, 20, Math.toRadians(0));//back to go for specimens
-        midwayPose4 = new Pose2d(-60,30,Math.toRadians(0)); // out to push samples back
+        midwayPose3 = new Pose2d(-20, 17, Math.toRadians(0));//back to go for specimens
+        midwayPose4 = new Pose2d(-50, 30, Math.toRadians(-90)); // out to push samples back
 
-        parkPose = new Pose2d(3, 15, 0);
+        parkPose = new Pose2d(3, 0, 0);
 
 
-            // Raise Arm to high bar scoring position
-            if(opModeIsActive()) {
-                // TODO: Add code to release the sample and lower the arm
-                robot.servoSpice.setPosition(params.SPICE_CLOSE);
-                mechOps.raiseLift(params.LIFT_CLIP_HIGH);
+        // Raise Arm to high bar scoring position
+        if (opModeIsActive()) {
+            // TODO: Add code to release the sample and lower the arm
+            robot.servoSpice.setPosition(params.SPICE_CLOSE);
+            mechOps.raiseLift(params.LIFT_CLIP_HIGH);
 
-            }
+
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
                             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
                             .build());
 
             // Score specimen
-            if(opModeIsActive()) {
-            // TODO: Add code to release the sample and lower the arm
-                mechOps.raiseLift(params.LIFT_CLIP_SCORE);
-                safeWaitSeconds(.25);
-                mechOps.openClaw();
 
-            }
+            // TODO: Add code to release the sample and lower the arm
+            mechOps.raiseLift(params.LIFT_CLIP_SCORE);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenScoringSlide.position, specimenScoringSlide.heading)
+                            .build());
+            mechOps.openClaw();
+
+
             //          Lower Lift
-                mechOps.raiseLift(params.LIFT_MIN_LOW);
+            mechOps.raiseLift(params.LIFT_MIN_LOW);
             // Drive to color specimen Position
+            // Push Color Sample1 into the Observation area
+            // Drive to color sample1 Position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(midwayPose3.position, midwayPose3.heading)
-                           .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
+                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
                             .strafeToLinearHeading(coloredSample1Position.position, coloredSample1Position.heading)
 //                            .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
 //                            .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
-                           .build());
+                            .build());
+            // Grab the specimen 2
+
+            Actions.runBlocking(
+                        drive.actionBuilder(drive.pose)
+                                .turnTo(Math.toRadians(-180))
+                                .lineToX(4)
+                                .build()  );
+
+            robot.servoSpice.setPosition(params.SPICE_CLOSE);
+            safeWaitSeconds(.25);
+
+            mechOps.raiseLift(params.LIFT_CLIP_HIGH);
+
+
+            // Drive to specimen scoring position
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
+                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            .build());
+
+            // Score specimen
+
+            // TODO: Add code to release the sample and lower the arm
+            mechOps.raiseLift(params.LIFT_CLIP_SCORE);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenScoringSlide.position, specimenScoringSlide.heading)
+                            .build());
+            mechOps.openClaw();
+            //          Lower Lift
+            mechOps.raiseLift(params.LIFT_MIN_LOW);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            .build());
+
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .turnTo(Math.toRadians(-180))
+                            .lineToX(2)
+                            .build()  );
+            // Grab the specimen 3
+            robot.servoSpice.setPosition(params.SPICE_CLOSE);
+            safeWaitSeconds(.25);
+
+            mechOps.raiseLift(params.LIFT_CLIP_HIGH);
+
+
+            // Drive to specimen scoring position
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
+                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            .build());
+
+            // Score specimen
+
+            // TODO: Add code to release the sample and lower the arm
+            mechOps.raiseLift(params.LIFT_CLIP_SCORE);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenScoringSlide.position, specimenScoringSlide.heading)
+                            .build());
+            mechOps.openClaw();
+
+            mechOps.raiseLift(params.LIFT_MIN_LOW);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            .build());
+            //          Lower Lift
 
 
             /**
 
-            // Push Color Sample1 into the Observation area
-            // Drive to color sample1 Position
 
-            // Grab the specimen
-            if(opModeIsActive()) {
-                safeWaitSeconds(1);
-            }
+
+
+             // Grab the specimen
+             if(opModeIsActive()) {
+             safeWaitSeconds(1);
+             }
+
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+             .build());
+
+             // Raise Arm to high basket scoring position
+             if(opModeIsActive()) {
+             safeWaitSeconds(1);
+             // TODO: Add code to raise claw to specimen high bar
+             }
+
+
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(sampleScoringPosition.position, sampleScoringPosition.heading)
+             .build());
+
+
+
+             // Score the specimen on the high bar
+             // Lower the arm
+             if(opModeIsActive()) {
+             // TODO: Add code to score the specimen
+             }
+
+
+             // Push Color Sample1 into the Observation area
+             // Drive to color sample1 Position
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+             .build());
+
+             // Grab the specimen
+             if(opModeIsActive()) {
+             // TODO: Add code to grab the specimen from the observation area (from the floor)
+             }
+
+             // Raise Arm to high basket scoring position
+             if(opModeIsActive()) {
+             // TODO: Add code to raise claw to specimen high bar
+             }
+
+             // Drive to specimen scoring position
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
+             .build());
+
+             // Score the specimen on the high bar
+             // Lower the arm
+             if(opModeIsActive()) {
+             // TODO: Add code to score the specimen
+             }
+
+             // Drive to colored Sample3 Position
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
+             .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
+             .strafeToLinearHeading(coloredSample3Position.position, coloredSample3Position.heading)
+             .build());
+
+             // Push Color Sample3 into the Observation area
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+             .build());
+
+             // Grab the specimen
+             if(opModeIsActive()) {
+             // TODO: Add code to grab the specimen from the observation area (from the floor)
+             }
+
+             // Raise Arm to high basket scoring position
+             if(opModeIsActive()) {
+             // TODO: Add code to raise claw to specimen high bar
+             }
+
+             // Drive to specimen scoring position
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
+             .build());
+
+             // Score the specimen on the high bar
+             // Lower the arm
+             if(opModeIsActive()) {
+             // TODO: Add code to score the specimen
+             }
+
+             // Park
+             if(opModeIsActive()) {
+             // TODO: Add code to park
+             // set claw and motors into correct position
+             }
+
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .strafeToLinearHeading(parkPose.position, parkPose.heading)
+             .build());
+             **/
 
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
                             .build());
-
-            // Raise Arm to high basket scoring position
-            if(opModeIsActive()) {
-                safeWaitSeconds(1);
-                // TODO: Add code to raise claw to specimen high bar
-            }
-
-
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(sampleScoringPosition.position, sampleScoringPosition.heading)
-                            .build());
-
-
-
-            // Score the specimen on the high bar
-            // Lower the arm
-            if(opModeIsActive()) {
-                // TODO: Add code to score the specimen
-            }
-
-
-            // Push Color Sample1 into the Observation area
-            // Drive to color sample1 Position
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
-                            .build());
-
-            // Grab the specimen
-            if(opModeIsActive()) {
-                // TODO: Add code to grab the specimen from the observation area (from the floor)
-            }
-
-            // Raise Arm to high basket scoring position
-            if(opModeIsActive()) {
-                // TODO: Add code to raise claw to specimen high bar
-            }
-
-            // Drive to specimen scoring position
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
-                            .build());
-
-            // Score the specimen on the high bar
-            // Lower the arm
-            if(opModeIsActive()) {
-                // TODO: Add code to score the specimen
-            }
-
-            // Drive to colored Sample3 Position
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
-                            .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
-                            .strafeToLinearHeading(coloredSample3Position.position, coloredSample3Position.heading)
-                            .build());
-
-            // Push Color Sample3 into the Observation area
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
-                            .build());
-
-            // Grab the specimen
-            if(opModeIsActive()) {
-                // TODO: Add code to grab the specimen from the observation area (from the floor)
-            }
-
-            // Raise Arm to high basket scoring position
-            if(opModeIsActive()) {
-                // TODO: Add code to raise claw to specimen high bar
-            }
-
-            // Drive to specimen scoring position
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
-                            .build());
-
-            // Score the specimen on the high bar
-            // Lower the arm
-            if(opModeIsActive()) {
-                // TODO: Add code to score the specimen
-            }
-
-            // Park
-            if(opModeIsActive()) {
-                // TODO: Add code to park
-                // set claw and motors into correct position
-            }
-
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(parkPose.position, parkPose.heading)
-                            .build());
-            **/
+        }
     }
 
     /**
