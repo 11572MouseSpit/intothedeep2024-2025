@@ -33,7 +33,7 @@ public class MSParams {
     public final int LIFT_RESET = 0;
     public final int LIFT_MIN_LOW = 0;
     public final int LIFT_CLIP_HIGH = 1400;
-    public final int LIFT_CLIP_SCORE = 1000;
+    public final int LIFT_CLIP_SCORE = 1100;
     public final int LIFT_CLIP_LOW = 500;
     public final int LIFT_MAX_HIGH = 2450;
     public final double LIFT_POWER = 0.5;
@@ -51,7 +51,7 @@ public class MSParams {
     public final double TWIST_HORIZONTAL = 0.3;
     public final double TWIST_VERTICAL = 0;
 
-    public final double SPICE_OPEN = 1;
-    public final double SPICE_CLOSE = 0.5;
+    public final double SPICE_OPEN = 0.3;
+    public final double SPICE_CLOSE = 1;
 
 }
