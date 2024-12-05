@@ -50,5 +50,30 @@ public class MSMechOps {
 
     public void closeClaw() {
         robot.servoSpice.setPosition(params.CLAW_CLOSE);
-    }           
+    }
+
+    public void armout() {
+        robot.servoExtendRight.setPosition(params.ExtendRight_OUT);
+        robot.servoExtend.setPosition(params.Extend_OUT);
+        robot.servoBar.setPosition(params.Bar_Down);
+        robot.servoWrist.setPosition(params.Wrist_Down);
+        robot.servoBucket.setPosition(params.Bucket_Down);
+        //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
+        robot.servoTwist.setPosition(params.TWIST_VERTICAL);
+        robot.servoClaw.setPosition(params.CLAW_OPEN);
+
+
+    }
+    public void armin() {
+        robot.servoExtendRight.setPosition(params.ExtendRight_IN);
+        robot.servoExtend.setPosition(params.Extend_IN);
+        robot.servoBar.setPosition(params.Bar_Up);
+        robot.servoWrist.setPosition(params.Wrist_Auto);
+        robot.servoBucket.setPosition(params.Bucket_Down);
+        //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
+        robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
+        robot.servoClaw.setPosition(params.CLAW_OPEN);
+
+
+    }
 }

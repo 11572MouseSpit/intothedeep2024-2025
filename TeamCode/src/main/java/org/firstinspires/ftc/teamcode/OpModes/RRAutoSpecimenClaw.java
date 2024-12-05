@@ -43,8 +43,8 @@ import org.firstinspires.ftc.teamcode.Libs.MSMechOps;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 //@Disabled
-@Autonomous(name = "Auto - SPECIMENS", group = "Competition", preselectTeleOp = "RobotTeleOp")
-public class RRAutoSpecimen extends LinearOpMode{
+@Autonomous(name = "Auto - SPECIMENS CLAW", group = "Competition", preselectTeleOp = "RobotTeleOp")
+public class RRAutoSpecimenClaw extends LinearOpMode{
 
     public static String TEAM_NAME = "Mouse Spit";
     public static int TEAM_NUMBER = 11572;
@@ -132,10 +132,10 @@ public class RRAutoSpecimen extends LinearOpMode{
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
-        midwayPose1 = new Pose2d(-22, -22, 90); //drop samples
-        midwayPose2 = new Pose2d(-20, -47, Math.toRadians(180)); //moving out to to go grabSpecimenPosition
-        midwayPose3 = new Pose2d(-22, 15, Math.toRadians(0));//back to go for specimens
-        midwayPose4 = new Pose2d(-50, 30, Math.toRadians(-90)); // out to push samples back
+        midwayPose1 = new Pose2d(-28, 35, Math.toRadians(110)); //drop samples
+        midwayPose2 = new Pose2d(-28, 25, Math.toRadians(110)); //moving out to to go grabSpecimenPosition
+        midwayPose3 = new Pose2d(-27, 15, Math.toRadians(110));//back to go for specimens
+        midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // out to push samples back
 
         parkPose = new Pose2d(0, 55, Math.toRadians(-180));
 
@@ -167,20 +167,62 @@ public class RRAutoSpecimen extends LinearOpMode{
 
             //          Lower Lift
             mechOps.raiseLift(params.LIFT_MIN_LOW);
+            mechOps.armout();
             // Drive to color specimen Position
             // Push Color Sample1 into the Observation area
-            // Drive to color sample1 Position
+            // Drive to color sample3 Position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(specimenPreScoringPosition.position,specimenPreScoringPosition.heading)
                             .strafeToLinearHeading(midwayPose3.position, midwayPose3.heading)
-                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
-                            .strafeToLinearHeading(coloredSample1Position.position, coloredSample1Position.heading)
+//                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
+//                            .strafeToLinearHeading(coloredSample1Position.position, coloredSample1Position.heading)
 //                            .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
 //                            .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
+//                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            .build());
+
+            robot.servoClaw.setPosition(params.CLAW_CLOSE);
+            //Turn to Sample 3 Drop
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
+                            .build());
+            robot.servoClaw.setPosition(params.CLAW_OPEN);
+            //Turn to Sample Pick 2
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
+                            .build());
+            robot.servoClaw.setPosition(params.CLAW_CLOSE);
+            //Turn to Sample 2 Drop
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
+                            .build());
+            robot.servoClaw.setPosition(params.CLAW_OPEN);
+
+ /**
+            //Turn to Sample Pick 1
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
+                            .build());
+            robot.servoClaw.setPosition(params.CLAW_CLOSE);
+            //Turn to Sample 1 Drop
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
+                            .build());
+            robot.servoClaw.setPosition(params.CLAW_OPEN);
+**/
+
+            mechOps.armin();
+            // Grab the specimen 2
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
                             .build());
-            // Grab the specimen 2
 
             Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
@@ -189,7 +231,7 @@ public class RRAutoSpecimen extends LinearOpMode{
                                 .build()  );
 
             robot.servoSpice.setPosition(params.SPICE_CLOSE);
-            safeWaitSeconds(.25);
+            safeWaitSeconds(0.1);
 
             mechOps.raiseLift(params.LIFT_CLIP_HIGH);
 
@@ -224,7 +266,7 @@ public class RRAutoSpecimen extends LinearOpMode{
                             .build()  );
             // Grab the specimen 3
             robot.servoSpice.setPosition(params.SPICE_CLOSE);
-            safeWaitSeconds(.25);
+            safeWaitSeconds(0.1);
 
             mechOps.raiseLift(params.LIFT_CLIP_HIGH);
 
@@ -251,6 +293,43 @@ public class RRAutoSpecimen extends LinearOpMode{
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
                             .build());
+
+/**
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .turnTo(Math.toRadians(-180))
+                            .lineToX(4)
+                            .build()  );
+            // Grab the specimen 4
+            robot.servoSpice.setPosition(params.SPICE_CLOSE);
+            safeWaitSeconds(0.1);
+
+            mechOps.raiseLift(params.LIFT_CLIP_HIGH);
+
+
+            // Drive to specimen scoring position
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
+                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            .build());
+
+            // Score specimen
+
+            // TODO: Add code to release the sample and lower the arm
+            mechOps.raiseLift(params.LIFT_CLIP_SCORE);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenScoringSlide.position, specimenScoringSlide.heading)
+                            .build());
+            mechOps.openClaw();
+
+            mechOps.raiseLift(params.LIFT_MIN_LOW);
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            .build());
+ **/
             //          Lower Lift
 
 
