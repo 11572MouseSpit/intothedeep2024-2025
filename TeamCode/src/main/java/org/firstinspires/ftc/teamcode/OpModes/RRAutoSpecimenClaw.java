@@ -109,6 +109,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
         Pose2d yellowSample1Position = new Pose2d(0, 0, 0);
         Pose2d yellowSample2Position = new Pose2d(0, 0, 0);
         Pose2d yellowSample3Position = new Pose2d(0, 0, 0);
+        Pose2d midwayPose0 = new Pose2d(0, 0, 0);
         Pose2d midwayPose1 = new Pose2d(0, 0, 0);
         Pose2d midwayPose2 = new Pose2d(0, 0, 0);
         Pose2d midwayPose3 = new Pose2d(0, 0, 0);
@@ -128,16 +129,17 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
         specimenPreScoringPosition = new Pose2d(-23, -10, 0);
         specimenScoringPosition = new Pose2d(-33, -10, 0);
         specimenScoringSlide = new Pose2d(-33, -15, 0);
-        grabSpecimenPosition = new Pose2d(-2, 20, Math.toRadians(-180));
+        grabSpecimenPosition = new Pose2d(-3, 20, Math.toRadians(-180));
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
-        midwayPose1 = new Pose2d(-28, 35, Math.toRadians(110)); //drop samples
-        midwayPose2 = new Pose2d(-28, 25, Math.toRadians(110)); //moving out to to go grabSpecimenPosition
-        midwayPose3 = new Pose2d(-27, 15, Math.toRadians(110));//back to go for specimens
-        midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // out to push samples back
+        midwayPose0 = new Pose2d(-27, 9, Math.toRadians(110)); //pick close to wall 35
+        midwayPose1 = new Pose2d(-27, 29, Math.toRadians(110)); //pick close to wall 35
+        midwayPose2 = new Pose2d(-27, 20, Math.toRadians(110)); //pick middle 25
+        midwayPose3 = new Pose2d(-29.5, 12, Math.toRadians(110));//pik first 15
+        midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // drop off
 
-        parkPose = new Pose2d(0, 55, Math.toRadians(-180));
+        parkPose = new Pose2d(0, 40, Math.toRadians(-180));
 
 
         // Raise Arm to high bar scoring position
@@ -174,13 +176,19 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(specimenPreScoringPosition.position,specimenPreScoringPosition.heading)
-                            .strafeToLinearHeading(midwayPose3.position, midwayPose3.heading)
+                            .strafeToLinearHeading(midwayPose0.position, midwayPose0.heading)
 //                            .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
 //                            .strafeToLinearHeading(coloredSample1Position.position, coloredSample1Position.heading)
 //                            .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
 //                            .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
 //                            .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
                             .build());
+
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose3.position, midwayPose3.heading)
+                            .build());
+
 
             robot.servoClaw.setPosition(params.CLAW_CLOSE);
             //Turn to Sample 3 Drop
@@ -202,7 +210,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
                             .build());
             robot.servoClaw.setPosition(params.CLAW_OPEN);
 
- /**
+
             //Turn to Sample Pick 1
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
@@ -215,7 +223,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
                             .strafeToLinearHeading(midwayPose4.position, midwayPose4.heading)
                             .build());
             robot.servoClaw.setPosition(params.CLAW_OPEN);
-**/
+
 
             mechOps.armin();
             // Grab the specimen 2
@@ -294,7 +302,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
                             .build());
 
-/**
+//here to stop 4th Spec
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .turnTo(Math.toRadians(-180))
@@ -329,7 +337,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
                             .build());
- **/
+
             //          Lower Lift
 
 
