@@ -489,3 +489,21 @@ public final class MecanumDrive {
         );
     }
 }
+/**
+ * Working Numbers from Black Friday Scrimmage
+ *
+ *        // drive model parameters
+ *         public double inPerTick = 0.0029;
+ *         public double lateralInPerTick = 0.0019811851358727743;  //inPerTick//
+ *         public double trackWidthTicks =  4442.332223142193;
+ *
+ *         // feedforward parameters (in tick units)
+ *         public double kS = 1.9883064224432494;
+ *         public double kV = 0.00026505829803169506;
+ *         public double kA = 0.0000721;
+ *
+ *         // path profile parameters (in inches)
+ *         public double maxWheelVel = 50;
+ *         public double minProfileAccel = -30;
+ *         public double maxProfileAccel = 50;
+ */
