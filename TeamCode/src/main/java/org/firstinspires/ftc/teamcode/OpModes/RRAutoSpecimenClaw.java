@@ -133,10 +133,10 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
-        midwayPose0 = new Pose2d(-27, 9, Math.toRadians(110)); //pick close to wall 35
+        midwayPose0 = new Pose2d(-27, 9, Math.toRadians(103)); //pick close to wall 35
         midwayPose1 = new Pose2d(-27, 29, Math.toRadians(110)); //pick close to wall 35
-        midwayPose2 = new Pose2d(-27, 20, Math.toRadians(110)); //pick middle 25
-        midwayPose3 = new Pose2d(-29.5, 12, Math.toRadians(110));//pik first 15
+        midwayPose2 = new Pose2d(-27, 21, Math.toRadians(110)); //pick middle 25
+        midwayPose3 = new Pose2d(-29.5, 12, Math.toRadians(108));//pik first 15
         midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // drop off
 
         parkPose = new Pose2d(0, 40, Math.toRadians(-180));
