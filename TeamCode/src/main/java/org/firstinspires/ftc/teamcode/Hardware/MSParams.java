@@ -27,7 +27,7 @@ public class MSParams {
 
     public final double Bucket_Down = 0.0;
     public final double Bucket_Catch = 0.1;
-    public final double Bucket_Dump = 0.75; //0.70
+    public final double Bucket_Dump = 0.80; //0.70
 
     public final int LIFT_Bottom_B = 2000;
     public final int LIFT_RESET = 0;
