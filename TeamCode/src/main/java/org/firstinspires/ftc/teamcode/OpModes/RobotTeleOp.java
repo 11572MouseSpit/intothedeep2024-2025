@@ -160,7 +160,7 @@ public class RobotTeleOp extends LinearOpMode {
                     //robot.servoClaw.setPosition(params.CLAW_OPEN);
 
                 }   // end of if(gamepad1.x)
-
+// A=X symbol
                 if (gamepad1.a) {
                     robot.servoBucket.setPosition(params.Bucket_Dump);
 
