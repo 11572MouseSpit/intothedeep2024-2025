@@ -133,10 +133,10 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
-        midwayPose0 = new Pose2d(-27, 9, Math.toRadians(103)); //Before first pick
-        midwayPose1 = new Pose2d(-27, 24, Math.toRadians(110)); //pick close to wall 35
+        midwayPose0 = new Pose2d(-22, 9, Math.toRadians(103)); //Before first pick
+        midwayPose1 = new Pose2d(-27, 28, Math.toRadians(105)); //pick close to wall 35
         midwayPose2 = new Pose2d(-27, 20, Math.toRadians(110)); //pick middle 25
-        midwayPose3 = new Pose2d(-29.5, 12, Math.toRadians(108));//pick first 15
+        midwayPose3 = new Pose2d(-29.5, 15, Math.toRadians(108));//pick first 15
         midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // drop off
 
         parkPose = new Pose2d(0, 40, Math.toRadians(-180));
@@ -333,6 +333,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
             mechOps.openClaw();
 
             mechOps.raiseLift(params.LIFT_MIN_LOW);
+            mechOps.armout();
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(grabSpecimenPosition.position, grabSpecimenPosition.heading)
@@ -453,7 +454,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
              .strafeToLinearHeading(parkPose.position, parkPose.heading)
              .build());
              **/
-            mechOps.armout();
+
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .strafeToLinearHeading(parkPose.position, parkPose.heading)
