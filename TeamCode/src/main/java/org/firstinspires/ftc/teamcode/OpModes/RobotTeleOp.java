@@ -179,7 +179,7 @@ public class RobotTeleOp extends LinearOpMode {
 
                if(gamepad1.dpad_right){
                  //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);
-                   mBase = params.LIFT_CLIP_LOW;
+                   mBase = params.LIFT_CLIP_SCORE;
                 }
 
                 if (gamepad1.dpad_up) {
@@ -241,13 +241,25 @@ public class RobotTeleOp extends LinearOpMode {
 
                     mBase=mBase-3;
                 }
-                    // limit the max and min value of mBase
+
+                //emergency down button
+                if (gamepad2.left_trigger>0.3){
+
+                    mBase=mBase-3;
+                }
+
+                // limit the max and min value of mBase
                 // robot.servoBar.setPosition(barPosition);
                 robot.servoClaw.setPosition(clawPosition);
                 robot.servoSpice.setPosition(spicePosition);
                 robot.servoTwist.setPosition(TwistPosition);
 
-                mBase = Range.clip(mBase,params.LIFT_MIN_LOW,params.LIFT_MAX_HIGH);
+                //if gamepad2 left trigger is active the range clip will not apply
+                if(!(gamepad2.left_trigger>0.3)) {
+
+                    mBase = Range.clip(mBase, params.LIFT_MIN_LOW, params.LIFT_MAX_HIGH);
+                }
+
                 drive.liftPosition(mBase);
 
 
@@ -296,10 +308,9 @@ public class RobotTeleOp extends LinearOpMode {
                     robot.motorRR.setPower(0);
                 }
 */
-                if (gamepad2.dpad_right){
 
                         }
                 }
             }
-        }
+
 
