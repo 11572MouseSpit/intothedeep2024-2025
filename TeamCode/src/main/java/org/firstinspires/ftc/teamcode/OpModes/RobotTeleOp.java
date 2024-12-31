@@ -35,10 +35,15 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Hardware.HWProfile2;
 import org.firstinspires.ftc.teamcode.Hardware.MSParams;
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanumFTCLib;
+
+import java.util.Locale;
 
 /*
  * This OpMode executes a POV Game style Teleop for a direct drive robot
@@ -102,6 +107,7 @@ public class RobotTeleOp extends LinearOpMode {
             double TwistPosition = params.TWIST_HORIZONTAL;
             ElapsedTime buttonPressTimer = new ElapsedTime();
             boolean clawOpen = false;
+            double botHeading;
 
 
 
@@ -110,6 +116,44 @@ public class RobotTeleOp extends LinearOpMode {
             int hangPosition = 0;
             int mBase = params.LIFT_RESET;
             while (opModeIsActive()) {
+
+
+                double y = -gamepad1.left_stick_y;
+                double x = gamepad1.left_stick_x;
+                double rx = gamepad1.right_stick_x;
+
+                // This button choice was made so that it is hard to hit on accident,
+                // it can be freely changed based on preference.
+                // The equivalent button is start on Xbox-style controllers.
+                if (gamepad1.options) {
+                    robot.imu.resetYaw();
+                }
+
+                //botHeading = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+                botHeading = Math.toRadians(robot.imu.getRobotYawPitchRollAngles().getYaw());
+
+                // Rotate the movement direction counter to the bot's rotation
+                double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+                double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+                rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+                // Denominator is the largest motor power (absolute value) or 1
+                // This ensures all the powers maintain the same ratio,
+                // but only if at least one is out of the range [-1, 1]
+                double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+                double frontLeftPower = (rotY + rotX + rx) / denominator;
+                double backLeftPower = (rotY - rotX + rx) / denominator;
+                double frontRightPower = (rotY - rotX - rx) / denominator;
+                double backRightPower = (rotY + rotX - rx) / denominator;
+
+                robot.motorLF.setPower(frontLeftPower);
+                robot.motorLR.setPower(backLeftPower);
+                robot.motorRF.setPower(frontRightPower);
+                robot.motorRR.setPower(backRightPower);
+
+
+                /*
                 stickDrive = this.gamepad1.left_stick_y * DriveSpeed;
                 turn = this.gamepad1.right_stick_x * TurnSpeed;
                 strafe = this.gamepad1.left_stick_x * StrafeSpeed;
@@ -119,6 +163,7 @@ public class RobotTeleOp extends LinearOpMode {
                 TurnSpeed = -0.5;
 
                 drive.StrafeDrive(stickDrive, turn, strafe);
+                 */
 
 /*
                 if (gamepad1.left_bumper) {
