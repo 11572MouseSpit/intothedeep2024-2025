@@ -22,10 +22,11 @@ public class MSParams {
     public final double Extend_OUT = 0.0;
 
     //bar
-    public final double Bar_Up = 0.32;
-    public final double Bar_Down = 0.66;
+    public final double Bar_Up = 0.1;
+    public final double Bar_Down = 0.64;
     public final double Bar_Middle = 0.16;
-    public final double Bar_Auto = .42;
+    public final double Bar_Auto = .3;
+
 
     //buckets
     public final double Bucket_Down = 0.1;
@@ -44,10 +45,10 @@ public class MSParams {
     public final int LIFT_Bottom_B = 401;
 
     //wrist camands
-    public final double Wrist_Up = .98;
+    public final double Wrist_Up = .85;
     public final double Wrist_Release = 0.4;
-    public final double Wrist_Down = 0.05;
-    public final double Wrist_Auto = 0.6;
+    public final double Wrist_Down = 0;
+    public final double Wrist_Auto = 0.45;
 
 //Claw camands
     public final double CLAW_OPEN = 0.65;

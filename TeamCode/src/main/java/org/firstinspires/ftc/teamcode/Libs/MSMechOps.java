@@ -67,7 +67,7 @@ public class MSMechOps {
     public void armin() {
         robot.servoExtendRight.setPosition(params.ExtendRight_IN);
         robot.servoExtend.setPosition(params.Extend_IN);
-        robot.servoBar.setPosition(params.Bar_Up);
+        robot.servoBar.setPosition(params.Bar_Auto);
         robot.servoWrist.setPosition(params.Wrist_Auto);
         robot.servoBucket.setPosition(params.Bucket_Down);
         //robot.servoTwist.setPosition(params.TWIST_HORIZONTAL);

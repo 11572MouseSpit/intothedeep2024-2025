@@ -188,6 +188,7 @@ public class RobotTeleOp extends LinearOpMode {
                     spicePosition = params.SPICE_OPEN;
                     clawOpen = true;
                     robot.servoWrist.setPosition(params.Wrist_Release);
+                    robot.servoBar.setPosition(params.Bar_Auto);
                     mBase = params.LIFT_Top_B;
                 }
                 if (gamepad1.dpad_down) {
