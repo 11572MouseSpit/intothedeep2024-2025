@@ -98,6 +98,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
     public void runAutonoumousMode() {
         //Initialize Pose2d as desired
         Pose2d initPose = new Pose2d(0, 0, 0); // Starting Pose
+        Pose2d specimenPrePreScoringPosition = new Pose2d(0, 0, 0);
         Pose2d specimenPreScoringPosition = new Pose2d(0, 0, 0);
         Pose2d specimenScoringPosition = new Pose2d(0, 0, 0);
         Pose2d specimenScoringSlide = new Pose2d(0, 0, 0);
@@ -126,16 +127,17 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
         /*****************
          * Set values for RoadRunner Pathing
          */
-        specimenPreScoringPosition = new Pose2d(-23, -10, 0);
+        specimenPrePreScoringPosition= new Pose2d(-10, 5, 45);
+        specimenPreScoringPosition = new Pose2d(-22, -9, 0);
         specimenScoringPosition = new Pose2d(-33, -10, 0);
         specimenScoringSlide = new Pose2d(-33, -15, 0);
-        grabSpecimenPosition = new Pose2d(-3, 20, Math.toRadians(-180));
+        grabSpecimenPosition = new Pose2d(-1, 20, Math.toRadians(-180));
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
         midwayPose0 = new Pose2d(-22, 9, Math.toRadians(103)); //Before first pick
-        midwayPose1 = new Pose2d(-21, 28, Math.toRadians(112)); //pick close to wall 35 .-27
-        midwayPose2 = new Pose2d(-25, 20, Math.toRadians(112)); //pick middle 25  .-27
+        midwayPose1 = new Pose2d(-27, 26, Math.toRadians(114)); //pick close to wall 35 .-27
+        midwayPose2 = new Pose2d(-27, 19, Math.toRadians(110)); //pick middle 25  .-27
         midwayPose3 = new Pose2d(-29.5, 15, Math.toRadians(108));//pick first 15
         midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // drop off
 
@@ -152,6 +154,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
+                           // .strafeToLinearHeading(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
                             .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
                             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
                             .build());
@@ -247,6 +250,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
                             .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
                             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
                             .build());
@@ -282,6 +286,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
                             .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
                             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
                             .build());
@@ -318,6 +323,7 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
                             .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
                             .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
                             .build());
