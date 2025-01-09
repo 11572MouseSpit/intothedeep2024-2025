@@ -22,7 +22,7 @@ public class MSParams {
     public final double Extend_OUT = 0.0;
 
     //bar
-    public final double Bar_Up = 0.15;
+    public final double Bar_Up = 0.22;
     public final double Bar_Down = 0.59;
     public final double Bar_Middle = 0.16;
     public final double Bar_Auto = .3;
@@ -45,7 +45,7 @@ public class MSParams {
     public final int LIFT_Bottom_B = 401;
 
     //wrist camands
-    public final double Wrist_Up = .95;
+    public final double Wrist_Up = .98;
     public final double Wrist_Release = 0.4;
     public final double Wrist_Down = 0.05;
     public final double Wrist_Auto = 0.45;
@@ -60,6 +60,6 @@ public class MSParams {
 
     //Specimen claw
     public final double SPICE_OPEN = 0.3;
-    public final double SPICE_CLOSE = 1;
+    public final double SPICE_CLOSE = .57;
 
 }

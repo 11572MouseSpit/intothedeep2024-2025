@@ -177,7 +177,7 @@ public class RobotTeleOp extends LinearOpMode {
                 }
 */
                 if (gamepad1.y) {
-                    // What Happens when we hit Y - Dump to transfer
+                    // What Happens when we hit Y Triangle - Dump to transfer
 
                     robot.servoExtendRight.setPosition(params.ExtendRight_CATCH);
                     robot.servoExtend.setPosition(params.Extend_Catch);
