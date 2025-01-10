@@ -48,7 +48,7 @@ public class MSParams {
     public final double Wrist_Up = .98;
     public final double Wrist_Release = 0.4;
     public final double Wrist_Down = 0.05;
-    public final double Wrist_Auto = 0.45;
+    public final double Wrist_Auto = 0.5; //45
 
 //Claw camands
     public final double CLAW_OPEN = 0.65;

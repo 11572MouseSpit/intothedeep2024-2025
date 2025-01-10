@@ -131,14 +131,14 @@ public class RRAutoSpecimenClaw extends LinearOpMode{
         specimenPreScoringPosition = new Pose2d(-22, -9, 0);
         specimenScoringPosition = new Pose2d(-33, -10, 0);
         specimenScoringSlide = new Pose2d(-33, -15, 0);
-        grabSpecimenPosition = new Pose2d(-1, 20, Math.toRadians(-180));
+        grabSpecimenPosition = new Pose2d(1, 20, Math.toRadians(-180));
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
         midwayPose0 = new Pose2d(-22, 9, Math.toRadians(103)); //Before first pick
-        midwayPose1 = new Pose2d(-27, 26, Math.toRadians(114)); //pick close to wall 35 .-27
-        midwayPose2 = new Pose2d(-27, 19, Math.toRadians(110)); //pick middle 25  .-27
-        midwayPose3 = new Pose2d(-29.5, 15, Math.toRadians(108));//pick first 15
+        midwayPose1 = new Pose2d(-27, 30, Math.toRadians(106)); //pick close to wall 35 .-27
+        midwayPose2 = new Pose2d(-28, 22, Math.toRadians(108)); //pick middle 25  .-27
+        midwayPose3 = new Pose2d(-29.5, 15, Math.toRadians(110));//pick first 15
         midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // drop off
 
         parkPose = new Pose2d(0, 40, Math.toRadians(-180));
