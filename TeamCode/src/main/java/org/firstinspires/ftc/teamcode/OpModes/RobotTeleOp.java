@@ -57,7 +57,7 @@ import java.util.Locale;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Robot: Teleop POV", group="Robot")
+@TeleOp(name="Robot: TeleOp POV", group="Robot")
 public class RobotTeleOp extends LinearOpMode {
 
         private final static HWProfile2 robot = new HWProfile2();
