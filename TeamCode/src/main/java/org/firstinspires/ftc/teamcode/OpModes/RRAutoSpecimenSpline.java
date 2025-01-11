@@ -129,18 +129,19 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
          * Set values for RoadRunner Pathing
          */
         specimenPrePreScoringPosition= new Pose2d(-10, 5, 45);
-        specimenPreScoringPosition = new Pose2d(-22, -9, 0);
+        specimenPreScoringPosition = new Pose2d(-18, -9, 0);
+        //specimenScoringX =
         specimenScoringPosition = new Pose2d(-33, -10, 0);
         specimenScoringSlide = new Pose2d(-33, -15, 0);
         grabSpecimenPrePosition = new Pose2d(-15, 0, Math.toRadians(-90));
-        grabSpecimenPosition = new Pose2d(-1, 20, Math.toRadians(-180));
+        grabSpecimenPosition = new Pose2d(-7, 20, Math.toRadians(180));
         coloredSample1Position = new Pose2d(-5, 30, Math.toRadians(-90));
         coloredSample2Position = new Pose2d(-35, -58, 90);
         coloredSample3Position = new Pose2d(-35, -60, Math.toRadians(90));
         midwayPose0 = new Pose2d(-22, 9, Math.toRadians(103)); //Before first pick
-        midwayPose1 = new Pose2d(-27, 30, Math.toRadians(106)); //pick close to wall 35 .-27
-        midwayPose2 = new Pose2d(-28, 22, Math.toRadians(108)); //pick middle 25  .-27
-        midwayPose3 = new Pose2d(-29.5, 15, Math.toRadians(110));//pick first 15
+        midwayPose1 = new Pose2d(-25, 30, Math.toRadians(110)); //pick close to wall 35 .-27
+        midwayPose2 = new Pose2d(-25, 22, Math.toRadians(110)); //pick middle 25  .-27
+        midwayPose3 = new Pose2d(-29.5, 13, Math.toRadians(110));//pick first 15
         midwayPose4 = new Pose2d(-11, 20, Math.toRadians(50)); // drop off
 
         parkPose = new Pose2d(0, 40, Math.toRadians(-180));
@@ -158,8 +159,8 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                            // .strafeToLinearHeading(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
-                            .splineTo(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
-                            .splineTo(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
+                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
                             .build());
 
             // Score specimen
@@ -181,9 +182,9 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             // Drive to color sample3 Position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(specimenPreScoringPosition.position,specimenPreScoringPosition.heading)
-                            .splineTo(midwayPose0.position, midwayPose0.heading)
-                            .splineTo(midwayPose3.position, midwayPose3.heading)
+                            //.splineToLinearHeading(new Pose2d(specimenPreScoringPosition.position,specimenPreScoringPosition.heading),specimenPreScoringPosition.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose0.position, midwayPose0.heading) ,midwayPose0.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose3.position, midwayPose3.heading), midwayPose3.heading)
                             .build());
 
             robot.servoClaw.setPosition(params.CLAW_CLOSE);
@@ -192,7 +193,7 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
 
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(midwayPose4.position, midwayPose4.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose4.position, midwayPose4.heading), midwayPose4.heading)
                             .build());
             robot.servoClaw.setPosition(params.CLAW_OPEN);
 
@@ -200,7 +201,7 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
 
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(midwayPose2.position, midwayPose2.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose2.position, midwayPose2.heading), midwayPose2.heading)
                             .build());
             robot.servoClaw.setPosition(params.CLAW_CLOSE);
 
@@ -208,7 +209,7 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
 
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(midwayPose4.position, midwayPose4.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose4.position, midwayPose4.heading), midwayPose4.heading)
                             .build());
             robot.servoClaw.setPosition(params.CLAW_OPEN);
 
@@ -216,13 +217,13 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             //Turn to Sample Pick 1
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(midwayPose1.position, midwayPose1.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose1.position, midwayPose1.heading), midwayPose1.heading)
                             .build());
             robot.servoClaw.setPosition(params.CLAW_CLOSE);
             //Turn to Sample 1 Drop
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(midwayPose4.position, midwayPose4.heading)
+                            .splineToLinearHeading(new Pose2d(midwayPose4.position, midwayPose4.heading), midwayPose4.heading)
                             .build());
             robot.servoClaw.setPosition(params.CLAW_OPEN);
 
@@ -231,15 +232,18 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             // Grab the specimen 2
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(grabSpecimenPrePosition.position, grabSpecimenPrePosition.heading),grabSpecimenPrePosition.heading)
+                            .splineToLinearHeading(new Pose2d(grabSpecimenPosition.position, grabSpecimenPosition.heading),grabSpecimenPosition.heading)
+                            .turnTo(Math.toRadians(-180))
+                            .lineToX(2)
                             .build());
-
+/**
             Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
                                 .turnTo(Math.toRadians(-180))
                                 .lineToX(2)
                                 .build()  );
-
+**/
             robot.servoSpice.setPosition(params.SPICE_CLOSE);
             safeWaitSeconds(0.1);
 
@@ -249,9 +253,10 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
-                            .splineTo(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
-                            .splineTo(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading), specimenPrePreScoringPosition.heading)
+                            .strafeToLinearHeading(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
+                            .strafeToLinearHeading(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            //.lineToX(-33)
                             .build());
 
             // Score specimen
@@ -269,8 +274,8 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             //Return to wall for 3
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(grabSpecimenPrePosition.position, grabSpecimenPrePosition.heading)
-                            .splineTo(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(grabSpecimenPrePosition.position, grabSpecimenPrePosition.heading), grabSpecimenPrePosition.heading)
+                            .splineToLinearHeading(new Pose2d(grabSpecimenPosition.position, grabSpecimenPosition.heading), grabSpecimenPosition.heading)
                             .build());
 
             Actions.runBlocking(
@@ -288,9 +293,10 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
-                            .splineTo(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
-                            .splineTo(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading), specimenPrePreScoringPosition.heading)
+                            .splineToLinearHeading(new Pose2d(specimenPreScoringPosition.position, specimenPreScoringPosition.heading), specimenPreScoringPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(specimenScoringPosition.position, specimenScoringPosition.heading), specimenScoringPosition.heading)
+                            .lineToX(-33)
                             .build());
 
             // Score specimen 3
@@ -306,8 +312,8 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             mechOps.raiseLift(params.LIFT_MIN_LOW);
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(grabSpecimenPrePosition.position, grabSpecimenPrePosition.heading)
-                            .splineTo(grabSpecimenPosition.position, grabSpecimenPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(grabSpecimenPrePosition.position, grabSpecimenPrePosition.heading), grabSpecimenPrePosition.heading)
+                            .splineToLinearHeading(new Pose2d(grabSpecimenPosition.position, grabSpecimenPosition.heading), grabSpecimenPosition.heading)
                             .build());
 
 //here to stop 4th Spec
@@ -326,9 +332,10 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             // Drive to specimen scoring position
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading)
-                            .splineTo(specimenPreScoringPosition.position, specimenPreScoringPosition.heading)
-                            .splineTo(specimenScoringPosition.position, specimenScoringPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading), specimenPrePreScoringPosition.heading)
+                            .splineToLinearHeading(new Pose2d(specimenPreScoringPosition.position, specimenPreScoringPosition.heading), specimenPreScoringPosition.heading)
+                            //.splineToLinearHeading(new Pose2d(specimenScoringPosition.position, specimenScoringPosition.heading), specimenScoringPosition.heading)
+                            .lineToX(-33)
                             .build());
 
             // Score specimen
@@ -345,11 +352,12 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
             mechOps.armout();
 
             /**
-            Actions.runBlocking(
-                    drive.actionBuilder(drive.pose)
-                            .splineTo(grabSpecimenPrePosition.position, grabSpecimenPrePosition.heading)
-                            .splineTo(grabSpecimenPosition.position, grabSpecimenPosition.heading)
-                            .build());
+             Actions.runBlocking(
+             drive.actionBuilder(drive.pose)
+             .splineToLinearHeading(new Pose2d(specimenPrePreScoringPosition.position, specimenPrePreScoringPosition.heading), specimenPrePreScoringPosition.heading)
+             .splineToLinearHeading(new Pose2d(specimenPreScoringPosition.position, specimenPreScoringPosition.heading), specimenPreScoringPosition.heading)
+             .splineToLinearHeading(new Pose2d(specimenScoringPosition.position, specimenScoringPosition.heading), specimenScoringPosition.heading)
+             .build());
 
             //          Lower Lift
 
@@ -469,7 +477,7 @@ public class RRAutoSpecimenSpline extends LinearOpMode{
 
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
-                            .splineTo(parkPose.position, parkPose.heading)
+                            .splineToLinearHeading(new Pose2d(parkPose.position, parkPose.heading), parkPose.heading)
                             .build());
         }
     }
